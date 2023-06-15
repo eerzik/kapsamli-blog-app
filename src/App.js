@@ -5,12 +5,15 @@ import Home from './pages/home/Home';
 import Blog from './pages/blog/Blog';
 import Create from './pages/create/Create';
 import Search from './pages/search/Search';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
     <div className="App">
      <BrowserRouter>
+     <Navbar/>
      <Switch>
+   
       <Route exact  path="/"> <Home/> </Route>
       <Route  path="/create"> <Create/> </Route>
       <Route  path="/blog/:id"> <Blog/> </Route>
