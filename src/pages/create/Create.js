@@ -1,7 +1,10 @@
 import './Create.css'
-import { useState, useRef } from 'react'
-
+import { useState, useRef ,useEffect} from 'react'
+import { useFetch } from '../../hooks/useFetch'
+import {useHistory} from 'react-router-dom'
 export default function Create() {
+
+    const {postData,data}=useFetch('http://localhost:8000/bloglar', 'POST')
 
     const [baslik, setBaslik] = useState('')
     const [icerik, setIcerik] = useState('')
@@ -10,10 +13,13 @@ export default function Create() {
     const [kategoriler, setKategoriler] = useState([])
     const kategoriInput = useRef(null)
 
+    const history=useHistory();
+
     const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(baslik, icerik, okunmaSuresi, kategoriler);
-    }
+        e.preventDefault()
+        console.log(baslik, icerik, okunmaSuresi,kategoriler)
+        postData({baslik,kategoriler,icerik,okunmaSuresi:okunmaSuresi+'dakika'})
+      }
 
     const handleAdd = (e) => {
         e.preventDefault();
@@ -25,6 +31,13 @@ export default function Create() {
         setYeniKategori('')
         kategoriInput.current.focus()
     }
+
+    useEffect(()=>{
+        if(data)
+        {
+            history.push('/')
+        }
+    },[data,history])
 
     return (
         <div className='create'>

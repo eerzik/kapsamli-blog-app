@@ -7,14 +7,14 @@ export const useFetch = (url, method = "GET") => {
     const [yukleniyor, setYukleniyor] = useState(false);
 
     const [options, setOptions] = useState(null)
-    const postData = (data) => {
+    const postData = (postData) => {
         setOptions(
             {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify
+                body: JSON.stringify(postData)
             }
         )
     }
