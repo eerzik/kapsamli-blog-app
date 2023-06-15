@@ -15,8 +15,17 @@ export default function Blog() {
             {hata&&<p className='error' >{hata}</p>}
            {yukleniyor&&<p>Yükleniyor...</p>}
            {blog && 
-            <h1> {blog.baslik} </h1>
-            }
+          (
+            <>
+            <h2 className='page-title' >{blog.baslik}</h2>
+            <p className='time' >{blog.okunmaSuresi} okunma süresi</p>
+            <ul>
+                {blog.kategoriler.map(kat=>(<li key={kat}>{kat}</li>))}
+            </ul>
+            <p className='info' >{blog.icerik}</p>
+            </>
+          )
+          }
         </div>
     )
 }
