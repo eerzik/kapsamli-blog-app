@@ -1,6 +1,12 @@
 import './BlogList.css'
 import {Link} from 'react-router-dom'
 export default function BlogList({bloglar}) {
+
+    if(bloglar.length===0)
+    {
+        return <div className='error' >Aranan Yazı Bulunamadı!</div>
+    }
+
     return (
         <div className='blog-list'>
             {

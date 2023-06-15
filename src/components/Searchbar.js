@@ -9,11 +9,12 @@ export default function Searchbar() {
     const handleSubmit = (e) => {
         e.preventDefault();
         history.push(`/search?q=${kelime}`);
+        setKelime('')
     }
     return (
         <div className='searchbar' >
             <form onSubmit={handleSubmit} >
-                <input placeholder='Aranacak Kelime' id="search" type='text' onChange={(e)=>setKelime(e.target.value)} ></input>
+                <input placeholder='Aranacak Kelime' id="search" type='text' onChange={(e)=>setKelime(e.target.value)} value={kelime} ></input>
             </form>
         </div>
     )
