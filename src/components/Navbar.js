@@ -6,7 +6,7 @@ import { useTheme } from '../hooks/useTheme'
 export default function Navbar() {
 
     const { bgColor, changeColor } = useTheme();
-    console.log(bgColor);
+    // console.log(bgColor);
     return (
         //Navbar ın rengini themecontext den getirdik.
         <div className='navbar' style={{ backgroundColor: bgColor }} >
