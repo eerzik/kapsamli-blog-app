@@ -6,7 +6,8 @@ const themeReducer = (state, action) => {
     switch (action.type) {
         case 'CHANGE_COLOR':
             return { ...state, bgColor: action.payload }
-
+        default:
+            return {}
     }
 }
 
