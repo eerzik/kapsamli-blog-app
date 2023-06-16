@@ -1,13 +1,16 @@
 import './Create.css'
-import { useState, useRef ,useEffect} from 'react'
-import { useFetch } from '../../hooks/useFetch'
-import {useHistory} from 'react-router-dom'
+import { useState, useRef } from 'react'
+// import { useFetch } from '../../hooks/useFetch'
+import { useHistory } from 'react-router-dom'
 import { useTheme } from '../../hooks/useTheme'
+import { db } from '../../firebase/config'
+import { collection, addDoc } from 'firebase/firestore'
+
 export default function Create() {
 
-    const {mode}=useTheme()
-    
-    const {postData,data}=useFetch('http://localhost:8000/bloglar', 'POST')
+    const { mode } = useTheme()
+
+    //  const { postData, data } = useFetch('http://localhost:8000/bloglar', 'POST')
 
     const [baslik, setBaslik] = useState('')
     const [icerik, setIcerik] = useState('')
@@ -16,13 +19,26 @@ export default function Create() {
     const [kategoriler, setKategoriler] = useState([])
     const kategoriInput = useRef(null)
 
-    const history=useHistory();
+    const history = useHistory();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(baslik, icerik, okunmaSuresi,kategoriler)
-        postData({baslik,kategoriler,icerik,okunmaSuresi:okunmaSuresi+'dakika'})
-      }
+        // console.log(baslik, icerik, okunmaSuresi,kategoriler)
+        // postData({baslik,kategoriler,icerik,okunmaSuresi:okunmaSuresi+'dakika'})
+        const doc = { baslik, kategoriler, icerik, okunmaSuresi: okunmaSuresi + 'dakika' };
+
+        const ref = collection(db, 'bloglar')
+
+        try {
+            await addDoc(ref, {
+                ...doc
+            })
+            history.push('/')
+        } catch (error) {
+
+            console.log(error)
+        }
+    }
 
     const handleAdd = (e) => {
         e.preventDefault();
@@ -35,12 +51,6 @@ export default function Create() {
         kategoriInput.current.focus()
     }
 
-    useEffect(()=>{
-        if(data)
-        {
-            history.push('/')
-        }
-    },[data,history])
 
     return (
         <div className={`create ${mode}`}>
